@@ -3,7 +3,7 @@
 </br>
 SpringMVC是Spring這個框架的網頁版，而Spirng是目前Java使用常見的框架，</br>在本篇不會以細說Spring，而是將SpringMVC的重點作為整理，畢竟網上已經有許多Spring的詳細說明，</br>在此會將SpringMVC做一個重點整理，使一般有Java基礎的設計師可以快速上手。
 * * * 
-##耦合度(Coupling，dependency)
+## 耦合度(Coupling，dependency)
 </br>
 在理解Spring的控制反轉以前，要先從「耦合度」開始說起，耦合度則是物件導向概念中關聯性的代名詞，
 </br>在物件導向中，每個物件都會有牽扯到另一個物件的關聯，這會影響到耦合度。
@@ -19,7 +19,7 @@ objectC或者objectB掛掉，那麼整個程式幾乎會停止運作，而如果
 </br>
 為了降低耦合度，於是有了控制反轉（Inversion of Control）的概念。
 * * * 
-##控制反轉(Inversion of Control)
+## 控制反轉(Inversion of Control)
 </br>
 </br>
 ![ioc1](images/ioc2.jpg)
@@ -50,11 +50,11 @@ objectC或者objectB掛掉，那麼整個程式幾乎會停止運作，而如果
 <li>反轉：容器請求物件B給物件A東西，物件A不需要再去對物件B請求，只要收東西就好，也就是物件A的控制權給容器，反轉控制。</li>
 </ul>
 * * * 
-##依賴注入(Dependency Injection)
+## 依賴注入(Dependency Injection)
 </br>
 了解控制反轉的概念，與控制反轉關聯的則是依賴注入(Dependency injection)。
 </br>
-###關於依賴性
+### 關於依賴性
 所謂的依賴即是某類別中有另一個類別的實例，這在物件導向中即是，物件中生出了另外一個物件，
 </br>
 </br>
@@ -63,7 +63,7 @@ objectC或者objectB掛掉，那麼整個程式幾乎會停止運作，而如果
 </br>
 接著看NormalProject這個範例：
 </br>
-###Class Gun:
+### Class Gun:
 <pre>
 public class Gun {
 
@@ -76,7 +76,7 @@ public class Gun {
 	}
 
 }</pre>
-###Class Bullet:
+### Class Bullet:
 <pre>
 public class Bullet {
 
@@ -84,7 +84,7 @@ public class Bullet {
 		System.out.println("Get a bullet!");
 	}
 } </pre>
-###Class Fire:
+### Class Fire:
 <pre>
 public class Fire {
 
@@ -103,7 +103,7 @@ public class Fire {
 如果要修改子彈的屬性，譬如把new Bullet()帶參數進去改成new Bullet(String fire)，這樣勢必要修改Bullet這個類別的內容。
 </br>高耦合度，如前面提到，因為關聯性強，除了難修改外，也不利於測試，不容易除錯等等。
 ***
-##關於依賴注入
+## 關於依賴注入
 依賴注入是一種行為，一樣是把依賴關係建立起來，不再需要new出物件實體，這樣的行為依賴注入。
 </br>
 </br>
@@ -120,14 +120,14 @@ public class Fire {
 </br>
 NotUseIocAndDi範例：
 </br>
-###Class IceGun:
+### Class IceGun:
 <pre>
   public class IceGun {
 	  public void shoot() { // IceGun Shoot method
           System.out.println("Ice Shoot!");
       }
   }</pre>
-###Class LaserGun:
+### Class LaserGun:
 <pre>
 public class LaserGun {
 
@@ -135,7 +135,7 @@ public class LaserGun {
 		System.out.println("shoot shoot shoot");
 	}
 }</pre>
-###Class Human:
+### Class Human:
 <pre>
 public class Human {
 
@@ -156,12 +156,12 @@ public class Human {
 </br>然而這就是沒有加入控制反轉與依賴注入的狀況，耦合度很高而不容易更改。</br>
 </br>所以接下來，使用依賴注入的概念：
 </br>
-###Interface Gun:現在換成一個介面，不進行實作
+### Interface Gun:現在換成一個介面，不進行實作
 <pre>
 public interface Gun {
 	public void shoot();
 }</pre>
-###Class IceGun:實作介面的方法
+### Class IceGun:實作介面的方法
 <pre>
 public class IceGun implements Gun {
 
@@ -170,7 +170,7 @@ public class IceGun implements Gun {
 		System.out.println("IceGun Shoot!");
 	}
 }</pre>
-###Class LaserGun:實作介面的方法
+### Class LaserGun:實作介面的方法
 <pre>
 public class LaserGun implements Gun {
 
@@ -179,7 +179,7 @@ public class LaserGun implements Gun {
 		System.out.println("LaserGun Shoot!");
 	}
 }</pre>
-###Class Human:不直接實作，一樣給了方法
+### Class Human:不直接實作，一樣給了方法
 <pre>
 public class Human {
 	Gun gun;
@@ -198,7 +198,7 @@ public class Human {
 		this.gun = gun;
 	}
 }</pre>
-###Class Fire:進行攻擊
+### Class Fire:進行攻擊
 <pre>
 //imitate container 
 public class Fire {
